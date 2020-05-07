@@ -19,11 +19,6 @@ describe('TableComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
 
-  it('should have nullable table data on start', () => {
-    expect(component.data).toBeNull();
-  });
+  
 });
