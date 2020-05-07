@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { StorageService } from '../services/storage.service';
 
 export interface TableData {
   id: number,
@@ -15,7 +16,7 @@ export interface TableConfig {
 }
 
 interface EditableNode {
-  row: string,
+  row: TableData,
   column: string,
 }
 
@@ -37,9 +38,10 @@ export class TableComponent implements OnInit {
   public rowValues: string[] = [];
   public columnNames: string[] = [];
   public editableNode: EditableNode = {
-    row: '',
+    row: null,
     column: '',
   };
+  public error = false;
   private sortableUp: SortableColumns = {
     id: true,
     email: false,
@@ -49,7 +51,7 @@ export class TableComponent implements OnInit {
   };
   private prevSortable: string; 
 
-  constructor() {}
+  constructor( private storageService: StorageService ) {}
 
   ngOnInit() {
     this.getColumnNames();
@@ -77,19 +79,26 @@ export class TableComponent implements OnInit {
     this.prevSortable = column;
   }
 
-  public editData(rowData, columnData) {
-    this.editableNode = {
-      row: rowData,
-      column: columnData,
+  public editData(rowData: TableData, columnData: string) {
+    if(!this.error) {
+      this.editableNode = {
+        row: rowData,
+        column: columnData,
+      }
     }
   }
 
-  public clearEditableNode() {
-    console.log(this.config.data);
-    this.editableNode = {
-      row: '',
-      column: '',
-    };
+  public clearEditableNode(columnData: string) {
+    columnData? this.error = false : this.error = true;
+
+    if(!this.error) {
+      this.editableNode = {
+        row: null,
+        column: '',
+      };
+
+      this.storageService.addItem('tableConfig', JSON.stringify(this.config));
+    }
   }
 
   public canEdit(rowData, columnData) {
