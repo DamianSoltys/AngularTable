@@ -1,12 +1,34 @@
-<table>
-  <th *ngFor="let column of columnNames" (click)="sortByColumn(column)">
+<table class='table-component'>
+  <th 
+    *ngFor="let column of columnNames" 
+    (click)="sortByColumn(column)"
+    class='table-component__header'
+  >
     {{ column }}
   </th>
-  <tr *ngFor="let row of config.data">
-    <td *ngFor="let column of columnNames">
-      <p *ngIf="!canEdit(row, column) && column !== 'avatar'" (click)='editData(row, column)'> {{row[column]}} </p>
-      <input type="text" name='{{row.id + column}}' *ngIf="canEdit(row, column) && column !== 'avatar'" [(ngModel)]='row[column]' (blur)='clearEditableNode()'>
-      <img src={{row.avatar}} alt={{row.last_name}} *ngIf="column === 'avatar'">
+  <tr *ngFor="let row of config.data" class='table-component__row'>
+    <td *ngFor="let column of columnNames" class='table-component__cell'>
+      <p 
+        *ngIf="!canEdit(row, column) && column !== 'avatar'" 
+        (click)='editData(row, column)' 
+        class='table-component__cell-text'
+      > 
+        {{row[column]}} 
+      </p>
+      <input 
+        type="text" 
+        name='{{row.id + column}}' 
+        *ngIf="canEdit(row, column) && column !== 'avatar'" 
+        [(ngModel)]='row[column]' 
+        (blur)='clearEditableNode()'
+        class='table-component__cell-input'
+      >
+      <img 
+        src={{row.avatar}} 
+        alt={{row.last_name}} 
+        *ngIf="column === 'avatar'" 
+        class='table-component__cell-image'
+      >
     </td>
   </tr>
 </table>
