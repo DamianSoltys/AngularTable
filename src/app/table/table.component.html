@@ -1,13 +1,14 @@
 <table class='table-component'>
   <th 
     *ngFor="let column of columnNames" 
-    (click)="sortByColumn(column)"
     class='table-component__header'
   >
     {{ column }}
     <img 
       src='../../assets/arrow.svg' 
-      class='table-component__arrow-icon' 
+      class='table-component__arrow-icon'
+      *ngIf="config.isSortable && checkIfColumnSortable(column)" 
+      (click)="sortByColumn(column)"
       [ngClass]="sortableUp[column]? 'table-component__arrow-icon--up' : 'table-component__arrow-icon--down'"
     >
   </th>
@@ -22,7 +23,7 @@
       </p>
       <form #f="ngForm">
         <input 
-          type='text'
+          type='email'
           name='{{row.id + column}}' 
           *ngIf="canEdit(row, column)" 
           [(ngModel)]='row[column]' 

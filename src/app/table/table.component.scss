@@ -24,10 +24,6 @@
     &:last-of-type {
       border-top-right-radius: 5px;
     }
-
-    &:hover {
-      cursor: pointer;
-    }
   }
 
   .table-component__row {
@@ -108,6 +104,10 @@
     width: 15px;
     position: relative;
     top: 2px;
+    
+    &:hover {
+      cursor: pointer;
+    }
 
     &.table-component__arrow-icon--up {
       transform: rotate(180deg);

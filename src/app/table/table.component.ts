@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { StorageService } from '../services/storage.service';
 
 export interface TableData {
@@ -12,7 +12,18 @@ export interface TableData {
 export interface TableConfig {
   numberOfColumns?: number,
   data?: TableData[],
+  isEditable?: boolean,
+  isSortable?: boolean,
+  disabledColumns?: string[],
   pagination?: boolean,
+}
+
+export enum SortableColumnName {
+  ID = 'id',
+  FIRST_NAME = 'first_name',
+  EMAIL = 'email',
+  LAST_NAME = 'last_name',
+  AVATAR = 'avatar',
 }
 
 interface EditableNode {
@@ -35,6 +46,7 @@ interface SortableColumns {
 })
 export class TableComponent implements OnInit {
   @Input() config: TableConfig = null;
+  @ViewChild('f', { static: false }) form: any;
   public rowValues: string[] = [];
   public columnNames: string[] = [];
   public editableNode: EditableNode = {
@@ -60,6 +72,12 @@ export class TableComponent implements OnInit {
   }
 
   public sortByColumn(column: string): void {
+    const { isSortable, disabledColumns } = this.config;
+
+    if(!isSortable) return;
+
+    if(disabledColumns && !this.checkIfColumnSortable(column)) return;
+
     if(column !== this.prevSortable) this.sortableUp[this.prevSortable] = false;
 
     if(!this.sortableUp[column]) {
@@ -104,8 +122,24 @@ export class TableComponent implements OnInit {
   public canEdit(rowData, columnData): boolean {
     const { row, column } = this.editableNode;
 
-    if(row === rowData && column === columnData && columnData !== 'id') return true;
+    if(row === rowData 
+        && column === columnData 
+        && columnData !== 'id' 
+        && this.config.isEditable
+      ) return true;
+
     return false;
+  }
+
+  private checkIfColumnSortable(columnData: string) {
+    const { disabledColumns } = this.config;
+    let sortable = true;
+
+    disabledColumns.forEach(column => {
+      if(column === columnData) sortable = false;
+    });
+
+    return sortable;
   }
   
   private getColumnNames(): void {

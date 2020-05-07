@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
-import { TableData, TableConfig } from '../table/table.component';
+import { TableData, TableConfig, SortableColumnName } from '../table/table.component';
 import { StorageService } from '../services/storage.service';
 
 @Component({
@@ -26,6 +26,9 @@ export class HomeComponent implements OnInit {
         this.tableConfig = {
           data: tableData,
           numberOfColumns: 5,
+          isEditable: true,
+          isSortable: true,
+          disabledColumns: [SortableColumnName.EMAIL, SortableColumnName.AVATAR],
           pagination: false, //POSSIBLE IMPROVEMENT
         }
 
