@@ -66,7 +66,7 @@ export class TableComponent implements OnInit {
 
   ngOnInit(): void {
     this.getColumnNames();
-    this.config.data.sort();
+    this.normalSort('id');
     this.prevSortable = this.columnNames[0];
   }
 
@@ -86,9 +86,9 @@ export class TableComponent implements OnInit {
     }
     
     if(!this.sortableUp[column]) {
-      this.normalSort(column);
-    } else {
       this.reverseSort(column);
+    } else {
+      this.normalSort(column);
     }
 
     this.prevSortable = column;
@@ -148,7 +148,7 @@ export class TableComponent implements OnInit {
     });
   }
 
-  private reverseSort(column: string) {
+  private normalSort(column: string) {
     this.config.data.sort((a,b) => {
       if(a[column] > b[column]) {
         return 1;
@@ -162,7 +162,7 @@ export class TableComponent implements OnInit {
     });
   }
 
-  private normalSort(column: string) {
+  private reverseSort(column: string) {
     this.config.data.sort((a,b) => {
       if(a[column] > b[column]) {
         return -1;
