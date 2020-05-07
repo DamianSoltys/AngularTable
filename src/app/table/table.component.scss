@@ -2,17 +2,17 @@
 
 .table-component {
   border-radius: 5px;
-  margin:auto;
   border-spacing: 0;
   color:$main-text-color;
   border: 2px solid $table-border-color;
+  width: 100%;
 
   .table-component__header {
     text-align: left;
     font-weight: bold;
     width: 20%;
     padding: 10px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     background-color: $odd-row-bg-color;
     border-bottom: 2px solid $table-border-color;
 
@@ -46,8 +46,19 @@
     }
 
     .table-component__cell:first-of-type {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: bold;
+
+      .table-component__cell-text {
+        transition: none;
+        border: none;
+
+        &:hover {
+          cursor: initial;
+          border: 0;
+          border-radius: 0;
+        }
+      }
     }
   }
 
@@ -55,22 +66,39 @@
     padding: 10px;
     text-overflow: ellipsis;
     max-width: 100%;
+    font-size: 1.1rem;
   }
 
   .table-component__cell-text {
-    max-width: 180px;
+    max-width: 250px;
     text-overflow: ellipsis;
     overflow: hidden;
+    padding: 5px;
+    transition: all 0.5s;
+    border: 1px solid transparent;
+
+    &:hover {
+      cursor: pointer;
+      border: 1px solid $input-border-color;
+      border-radius: 5px;
+    }
+
+    @include for-phone-only {
+      max-width: 150px;
+    }
   }
 
   .table-component__cell-input {
     padding: 5px;
     border: 1px solid $input-border-color;
     border-radius: 5px;
+    font-size: 1.1rem;
+    max-width: 250px;
     width: 100%;
   }
 
   .table-component__cell-image {
       border-radius: 50%;
+      border: 2px solid $image-border-color;
   }
 }

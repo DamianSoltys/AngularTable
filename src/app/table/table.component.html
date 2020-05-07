@@ -16,9 +16,9 @@
         {{row[column]}} 
       </p>
       <input 
-        type="text" 
+        type='text'
         name='{{row.id + column}}' 
-        *ngIf="canEdit(row, column) && column !== 'avatar'" 
+        *ngIf="canEdit(row, column)" 
         [(ngModel)]='row[column]' 
         (blur)='clearEditableNode()'
         class='table-component__cell-input'

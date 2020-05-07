@@ -85,6 +85,7 @@ export class TableComponent implements OnInit {
   }
 
   public clearEditableNode() {
+    console.log(this.config.data);
     this.editableNode = {
       row: '',
       column: '',
@@ -94,7 +95,7 @@ export class TableComponent implements OnInit {
   public canEdit(rowData, columnData) {
     const { row, column } = this.editableNode;
 
-    if(row === rowData && column === columnData) return true;
+    if(row === rowData && column === columnData && columnData !== 'id') return true;
     return false;
   }
   
