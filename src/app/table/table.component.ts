@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, ɵCompiler_compileModuleAndAllComponentsAsync__POST_R3__ } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 export interface TableData {
   id: number,
@@ -19,8 +19,12 @@ interface EditableNode {
   column: string,
 }
 
-interface SortableColumn {
-
+interface SortableColumns {
+  id: boolean,
+  email: boolean,
+  first_name: boolean,
+  last_name: boolean,
+  avatar: boolean,
 }
 
 @Component({
@@ -36,14 +40,21 @@ export class TableComponent implements OnInit {
     row: '',
     column: '',
   };
-  private sortableUp = {};
+  private sortableUp: SortableColumns = {
+    id: true,
+    email: false,
+    first_name: false,
+    last_name: false,
+    avatar: false,
+  };
   private prevSortable: string; 
 
   constructor() {}
 
   ngOnInit() {
     this.getColumnNames();
-    this.initialSort();
+    this.config.data.sort();
+    this.prevSortable = this.columnNames[0];
   }
 
   public sortByColumn(column) {
@@ -85,18 +96,6 @@ export class TableComponent implements OnInit {
 
     if(row === rowData && column === columnData) return true;
     return false;
-  }
-
-  private initialSort() {
-    let initialValue;
-
-    this.config.data.sort();
-    this.prevSortable = this.columnNames[0];
-
-    this.columnNames.forEach((column, index)=> {
-      index !== 0? initialValue = false : initialValue = true;;
-      this.sortableUp[column] = initialValue;
-    });
   }
   
   private getColumnNames() {
