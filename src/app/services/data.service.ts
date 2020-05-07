@@ -17,6 +17,7 @@ export interface ResponseData {
 })
 export class DataService {
   private dataUrl: string = 'https://reqres.in/api/users';
+  
   constructor( private http: HttpClient ) { }
 
   public getSinglePage(page: number = 0): Observable<any> {
@@ -24,17 +25,17 @@ export class DataService {
   }
 
   public getAllData(): Subject<any> {
-    let subject = new Subject<any>();
+    let subject$ = new Subject<any>();
 
     this.getSinglePage().pipe(
       expand((response: ResponseData) => response.page !== response.total_pages? this.getSinglePage(response.page + 1): EMPTY),
       reduce((acc: any, response: ResponseData) => acc.data.concat(response.data)),
     ).subscribe((response: TableData[]) => {
-      subject.next(response);
+      subject$.next(response);
     }, error => {
-      subject.next(false);
+      subject$.next(false);
     })
 
-    return subject;
+    return subject$;
   }
 }

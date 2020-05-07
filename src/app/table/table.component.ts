@@ -46,7 +46,6 @@ interface SortableColumns {
 })
 export class TableComponent implements OnInit {
   @Input() config: TableConfig = null;
-  @ViewChild('f', { static: false }) form: any;
   public rowValues: string[] = [];
   public columnNames: string[] = [];
   public editableNode: EditableNode = {
