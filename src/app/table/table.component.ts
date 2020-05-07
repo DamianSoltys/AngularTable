@@ -86,13 +86,11 @@ export class TableComponent implements OnInit {
       this.sortableUp[column] = false;
     }
     
-    this.config.data.sort((a,b) => {
-      if(a[column] > b[column] && this.sortableUp[column]) {
-        return 1;
-      } else {
-        return -1;
-      }
-    });
+    if(!this.sortableUp[column]) {
+      this.normalSort(column);
+    } else {
+      this.reverseSort(column);
+    }
 
     this.prevSortable = column;
   }
@@ -148,6 +146,34 @@ export class TableComponent implements OnInit {
 
     this.columnNames = columns.filter((value, index) => {
       if(index < this.config.numberOfColumns) return value;
+    });
+  }
+
+  private reverseSort(column: string) {
+    this.config.data.sort((a,b) => {
+      if(a[column] > b[column]) {
+        return 1;
+      } 
+
+      if(a[column] < b[column]) {
+        return -1;
+      }
+
+      return 0;
+    });
+  }
+
+  private normalSort(column: string) {
+    this.config.data.sort((a,b) => {
+      if(a[column] > b[column]) {
+        return -1;
+      } 
+
+      if(a[column] < b[column]) {
+        return 1;
+      }
+      
+      return 0;
     });
   }
 }
