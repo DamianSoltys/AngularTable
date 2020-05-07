@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../services/data.service';
+import { TableData } from '../table/table.component';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  public tableData: TableData[] = null;
 
-  constructor() { }
+  constructor( private dataService: DataService ) { }
 
   ngOnInit() {
+    this.dataService.getAllData().subscribe(data => {
+      this.tableData = data;
+    });
   }
 
 }

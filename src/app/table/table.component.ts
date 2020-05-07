@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+export interface TableData {
+  id: number,
+  email: string,
+  first_name: string,
+  last_name: string,
+  avatar: string,
+}
 
 @Component({
   selector: 'app-table',
@@ -6,10 +14,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
-
-  constructor() { }
+  @Input() data: TableData[] = null;
+  constructor() {}
 
   ngOnInit() {
+    
   }
 
 }
