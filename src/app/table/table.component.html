@@ -4,8 +4,8 @@
   </th>
   <tr *ngFor="let row of config.data">
     <td *ngFor="let column of columnNames">
-      <p *ngIf="column !== 'avatar'" (click)="editData(row, column)"> {{row[column]}} </p>
-      <input type="text" name='{{row.id + column}}' *ngIf="canEdit(row, column) && column !== 'avatar'" [(ngModel)]="row[column]">
+      <p *ngIf="!canEdit(row, column) && column !== 'avatar'" (click)='editData(row, column)'> {{row[column]}} </p>
+      <input type="text" name='{{row.id + column}}' *ngIf="canEdit(row, column) && column !== 'avatar'" [(ngModel)]='row[column]' (blur)='clearEditableNode()'>
       <img src={{row.avatar}} alt={{row.last_name}} *ngIf="column === 'avatar'">
     </td>
   </tr>
