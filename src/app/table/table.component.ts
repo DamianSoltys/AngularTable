@@ -53,13 +53,13 @@ export class TableComponent implements OnInit {
 
   constructor( private storageService: StorageService ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getColumnNames();
     this.config.data.sort();
     this.prevSortable = this.columnNames[0];
   }
 
-  public sortByColumn(column) {
+  public sortByColumn(column: string): void {
     if(column !== this.prevSortable) this.sortableUp[this.prevSortable] = false;
 
     if(!this.sortableUp[column]) {
@@ -79,7 +79,7 @@ export class TableComponent implements OnInit {
     this.prevSortable = column;
   }
 
-  public editData(rowData: TableData, columnData: string) {
+  public editData(rowData: TableData, columnData: string): void {
     if(!this.error) {
       this.editableNode = {
         row: rowData,
@@ -88,7 +88,7 @@ export class TableComponent implements OnInit {
     }
   }
 
-  public clearEditableNode(columnData: string) {
+  public clearEditableNode(columnData: string): void {
     columnData? this.error = false : this.error = true;
 
     if(!this.error) {
@@ -101,14 +101,14 @@ export class TableComponent implements OnInit {
     }
   }
 
-  public canEdit(rowData, columnData) {
+  public canEdit(rowData, columnData): boolean {
     const { row, column } = this.editableNode;
 
     if(row === rowData && column === columnData && columnData !== 'id') return true;
     return false;
   }
   
-  private getColumnNames() {
+  private getColumnNames(): void {
     const { data } = this.config;
     const columns = Object.keys(data[0]);
 

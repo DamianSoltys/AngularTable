@@ -8,9 +8,9 @@ export class StorageService {
 
   constructor() { }
 
-  public isSessionStorageSupported() {
+  public isSessionStorageSupported(): boolean {
     const storage = window.sessionStorage;
-    
+
     try {
       storage.setItem('test', 'test');
       storage.removeItem('test');    
@@ -20,7 +20,7 @@ export class StorageService {
     }
   }
 
-  public addItem(key:string, item: any) {
+  public addItem(key:string, item: any): boolean {
     if(this.isSessionStorageSupported()) {
       try {
         sessionStorage.setItem(key,item);
@@ -33,7 +33,7 @@ export class StorageService {
     return false;
   }
 
-  public removeItem(key: string) {
+  public removeItem(key: string): boolean {
     if(this.isSessionStorageSupported()) {
       try {
         sessionStorage.removeItem(key);
@@ -58,7 +58,7 @@ export class StorageService {
     return null;
   }
 
-  public clearStorage() {
+  public clearStorage(): boolean {
     if(this.isSessionStorageSupported()) {
       try {
         sessionStorage.clear();

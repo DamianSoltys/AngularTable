@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
     this.getTableData();
   }
 
-  private getTableData() {
+  private getTableData(): void {
     this.tableConfig = this.storageService.getItem('tableConfig');
 
     if(!this.tableConfig) {
