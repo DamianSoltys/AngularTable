@@ -24,4 +24,8 @@ describe('HomeComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should get table data from storage or API', () => {
+    expect(component.tableConfig).not.toBeNull();
+  });
 });
