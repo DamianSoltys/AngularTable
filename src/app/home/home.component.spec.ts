@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
-import { TableComponent } from '../table/table.component';
 import { AppModule } from '../app.module';
 
 describe('HomeComponent', () => {
@@ -23,5 +22,9 @@ describe('HomeComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should get table data from storage or API', () => {
+    expect(component.tableConfig).not.toBeNull();
   });
 });

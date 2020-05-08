@@ -10,8 +10,8 @@ export interface TableData {
 }
 
 export interface TableConfig {
-  numberOfColumns?: number,
-  data?: TableData[],
+  numberOfColumns: number,
+  data: TableData[],
   isEditable?: boolean,
   isSortable?: boolean,
   disabledColumns?: string[],
@@ -131,6 +131,8 @@ export class TableComponent implements OnInit {
   private checkIfColumnSortable(columnData: string) {
     const { disabledColumns } = this.config;
     let sortable = true;
+
+    if(!disabledColumns) return sortable;
 
     disabledColumns.forEach(column => {
       if(column === columnData) sortable = false;
