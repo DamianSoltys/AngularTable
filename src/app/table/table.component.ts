@@ -132,6 +132,8 @@ export class TableComponent implements OnInit {
     const { disabledColumns } = this.config;
     let sortable = true;
 
+    if(!disabledColumns) return sortable;
+
     disabledColumns.forEach(column => {
       if(column === columnData) sortable = false;
     });
