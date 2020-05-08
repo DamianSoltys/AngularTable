@@ -2,6 +2,14 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.6.
 
+## Instalation
+
+1. Install node.js.
+2. Install angular cli through npm: 'npm install -g @angular/cli'.
+3. Clone this repository to your local machine.
+4. Go to repository folder and in terminal type npm install.
+5. Now you just need to type 'ng serve' and everything should be working.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
