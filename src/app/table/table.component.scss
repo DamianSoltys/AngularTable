@@ -1,0 +1,121 @@
+@import 'common';
+
+.table-component {
+  border-radius: 5px;
+  border-spacing: 0;
+  color:$main-text-color;
+  border: 2px solid $table-border-color;
+  width: 100%;
+
+  .table-component__header {
+    text-align: left;
+    font-weight: bold;
+    width: 20%;
+    padding: 10px;
+    font-size: 1.2rem;
+    white-space: nowrap;
+    background-color: $odd-row-bg-color;
+    border-bottom: 2px solid $table-border-color;
+
+    &:first-of-type {
+      border-top-left-radius: 5px;
+    }
+
+    &:last-of-type {
+      border-top-right-radius: 5px;
+    }
+  }
+
+  .table-component__row {
+    border: 1px solid black;
+
+    &:nth-child(2n) {
+      background-color: $even-row-bg-color;
+    }
+
+    &:nth-child(2n + 1) {
+      background-color: $odd-row-bg-color;
+    }
+
+    &:last-child {
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+
+    .table-component__cell:first-of-type {
+      font-size: 1.2rem;
+      font-weight: bold;
+
+      .table-component__cell-text {
+        transition: none;
+        border: none;
+
+        &:hover {
+          cursor: initial;
+          border: 0;
+          border-radius: 0;
+        }
+      }
+    }
+  }
+
+  .table-component__cell {
+    padding: 10px;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    font-size: 1.1rem;
+  }
+
+  .table-component__cell-text {
+    max-width: 250px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding: 5px;
+    transition: all 0.5s;
+    border: 1px solid transparent;
+    min-height: 20px;
+
+    &:hover {
+      cursor: pointer;
+      border: 1px solid $input-border-color;
+      border-radius: 5px;
+    }
+
+    @include for-phone-only {
+      max-width: 150px;
+    }
+  }
+
+  .table-component__cell-input {
+    padding: 5px;
+    border: 1px solid $input-border-color;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    max-width: 250px;
+    width: 100%;
+  }
+
+  .table-component__cell-image {
+      border-radius: 50%;
+      border: 2px solid $image-border-color;
+  }
+
+  .table-component__arrow-icon {
+    width: 15px;
+    position: relative;
+    top: 2px;
+    
+    &:hover {
+      cursor: pointer;
+    }
+
+    &.table-component__arrow-icon--up {
+      transform: rotate(180deg);
+    }
+  }
+
+  .error {
+    padding-top: 5px;
+    color: rgb(255, 78, 78);
+  }
+}

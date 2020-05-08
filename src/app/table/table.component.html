@@ -1,1 +1,47 @@
-<p>table works!</p>
+<table class='table-component'>
+  <th 
+    *ngFor="let column of columnNames" 
+    class='table-component__header'
+  >
+    {{ column }}
+    <img 
+      src='../../assets/arrow.svg' 
+      class='table-component__arrow-icon'
+      *ngIf="config.isSortable && checkIfColumnSortable(column)" 
+      (click)="sortByColumn(column)"
+      [ngClass]="sortableUp[column]? 'table-component__arrow-icon--up' : 'table-component__arrow-icon--down'"
+    >
+  </th>
+  <tr *ngFor="let row of config.data" class='table-component__row'>
+    <td *ngFor="let column of columnNames" class='table-component__cell'>
+      <p 
+        *ngIf="!canEdit(row, column) && column !== 'avatar'" 
+        (click)='editData(row, column)' 
+        class='table-component__cell-text'
+      > 
+        {{row[column]}} 
+      </p>
+      <form #f="ngForm">
+        <input 
+          type='email'
+          name='{{row.id + column}}' 
+          *ngIf="canEdit(row, column)" 
+          [(ngModel)]='row[column]' 
+          (blur)='clearEditableNode(row[column])'
+          (keydown.enter)='clearEditableNode(row[column])'
+          class='table-component__cell-input'
+          required
+        >
+        <div *ngIf="!f.form.valid" class='error'>
+          Proszę uzupełnić pole!
+        </div>
+      </form>
+      <img 
+        src={{row.avatar}} 
+        alt={{row.last_name}} 
+        *ngIf="column === 'avatar'" 
+        class='table-component__cell-image'
+      >
+    </td>
+  </tr>
+</table>
