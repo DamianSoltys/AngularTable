@@ -3,7 +3,7 @@ import { DataService } from '../services/data.service';
 import { TableData, TableConfig, SortableColumnName } from '../table/table.component';
 import { StorageService } from '../services/storage.service';
 import { takeUntil } from 'rxjs/operators';
-import { observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-home',

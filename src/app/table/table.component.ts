@@ -10,8 +10,8 @@ export interface TableData {
 }
 
 export interface TableConfig {
-  numberOfColumns?: number,
-  data?: TableData[],
+  numberOfColumns: number,
+  data: TableData[],
   isEditable?: boolean,
   isSortable?: boolean,
   disabledColumns?: string[],
