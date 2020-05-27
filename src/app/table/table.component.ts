@@ -53,14 +53,14 @@ export class TableComponent implements OnInit {
     column: '',
   };
   public error = false;
-  private sortableUp: SortableColumns = {
+  public sortableUp: SortableColumns = {
     id: true,
     email: false,
     first_name: false,
     last_name: false,
     avatar: false,
   };
-  private prevSortable: string; 
+  private prevSortable: string;
 
   constructor( private storageService: StorageService ) {}
 
@@ -84,7 +84,7 @@ export class TableComponent implements OnInit {
     } else {
       this.sortableUp[column] = false;
     }
-    
+
     if(!this.sortableUp[column]) {
       this.reverseSort(column);
     } else {
@@ -119,9 +119,9 @@ export class TableComponent implements OnInit {
   public canEdit(rowData, columnData): boolean {
     const { row, column } = this.editableNode;
 
-    if(row === rowData 
-        && column === columnData 
-        && columnData !== 'id' 
+    if(row === rowData
+        && column === columnData
+        && columnData !== 'id'
         && this.config.isEditable
       ) return true;
 
@@ -140,7 +140,7 @@ export class TableComponent implements OnInit {
 
     return sortable;
   }
-  
+
   private getColumnNames(): void {
     const { data } = this.config;
     const columns = Object.keys(data[0]);
@@ -154,7 +154,7 @@ export class TableComponent implements OnInit {
     this.config.data.sort((a,b) => {
       if(a[column] > b[column]) {
         return 1;
-      } 
+      }
 
       if(a[column] < b[column]) {
         return -1;
@@ -168,12 +168,12 @@ export class TableComponent implements OnInit {
     this.config.data.sort((a,b) => {
       if(a[column] > b[column]) {
         return -1;
-      } 
+      }
 
       if(a[column] < b[column]) {
         return 1;
       }
-      
+
       return 0;
     });
   }
